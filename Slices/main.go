@@ -28,7 +28,7 @@ func main() {
 
 	//Removing Values from Slices based on index
 
-	var index int = 2
+	var index = 2
 	highScores = append(highScores[:index], highScores[index+1:]...)
 
 	fmt.Println(highScores)
