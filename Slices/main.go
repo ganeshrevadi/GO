@@ -23,10 +23,13 @@ func main() {
 	fmt.Println(highScores)
 
 	highScores = append(highScores, 43, 342)
-
+	sort.Ints(highScores)
 	fmt.Println(highScores)
 
-	sort.Ints(highScores)
+	//Removing Values from Slices based on index
+
+	var index int = 2
+	highScores = append(highScores[:index], highScores[index+1:]...)
 
 	fmt.Println(highScores)
 }
