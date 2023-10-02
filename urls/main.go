@@ -38,4 +38,5 @@ func main() {
 
 	an := partsOfUrl.String()
 	fmt.Println(an)
+	fmt.Println("Done for the day !")
 }
