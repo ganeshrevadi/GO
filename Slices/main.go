@@ -22,7 +22,7 @@ func main() {
 
 	fmt.Println(highScores)
 
-	highScores = append(highScores, 43, 342)
+	highScores = append(highScores, 43, 342, 45)
 	sort.Ints(highScores)
 	fmt.Println(highScores)
 
