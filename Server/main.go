@@ -20,5 +20,6 @@ func GetReq() {
 
 	defer res.Body.Close()
 
+	fmt.Println(res.Body)
 	fmt.Println("Status Code:", res.StatusCode)
 }
