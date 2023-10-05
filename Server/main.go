@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net/http"
+	"strings"
 )
 
 func main() {
@@ -22,4 +24,11 @@ func GetReq() {
 
 	fmt.Println(res.Body)
 	fmt.Println("Status Code:", res.StatusCode)
+
+	var resString strings.Builder
+	content, _ := io.ReadAll(res.Body)
+
+	fmt.Println(resString.String())
+
+	fmt.Println("string(content):", string(content))
 }
