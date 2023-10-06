@@ -10,6 +10,7 @@ import (
 func main() {
 	fmt.Println("Welcome to Server")
 	GetReq()
+	postJson()
 }
 
 func GetReq() {
@@ -31,4 +32,23 @@ func GetReq() {
 	fmt.Println(resString.String())
 
 	fmt.Println("string(content):", string(content))
+}
+
+func postJson() {
+	const myUrl = "http://localhost:8000/post"
+
+	req := strings.NewReader(`
+		{
+			"coursename": "Let's go with golang",
+			"price": 0,
+			"platform": "learnCodeOnline.in"
+	  	}
+	`)
+
+	res, _ := http.Post(myUrl, "application/json", req)
+	// var resString strings.Builder
+	// fmt.Println(resString.String())
+
+	// fmt.Println(res)
+	fmt.Println(res.StatusCode)
 }
