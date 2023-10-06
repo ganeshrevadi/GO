@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -11,6 +12,7 @@ func main() {
 	fmt.Println("Welcome to Server")
 	GetReq()
 	postJson()
+	postForm()
 }
 
 func GetReq() {
@@ -66,4 +68,31 @@ func postJson() {
 	fmt.Println(resString.String())
 
 	fmt.Println(res.StatusCode)
+}
+
+func postForm() {
+	const myUrl = "http://localhost:8000/postform"
+
+	data := url.Values{}
+
+	data.Add("name", "Rahul")
+	data.Add("course", "golang")
+	data.Add("price", "0")
+
+	res, err := http.PostForm(myUrl, data)
+	if err != nil {
+		panic(err)
+	}
+
+	defer res.Body.Close()
+
+	var resString strings.Builder
+	content, _ := io.ReadAll(res.Body)
+	byteCount, _ := resString.Write(content)
+	fmt.Println(string(content))
+	fmt.Println(byteCount, "bytes were written.")
+	fmt.Println(resString.String())
+
+	fmt.Println(res.StatusCode)
+
 }
