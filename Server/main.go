@@ -27,10 +27,12 @@ func GetReq() {
 	fmt.Println("Status Code:", res.StatusCode)
 
 	var resString strings.Builder
+
 	content, _ := io.ReadAll(res.Body)
+	byteCount, _ := resString.Write(content)
 
 	fmt.Println(resString.String())
-
+	fmt.Println(byteCount, "bytes were written.")
 	fmt.Println("string(content):", string(content))
 }
 
@@ -45,10 +47,23 @@ func postJson() {
 	  	}
 	`)
 
-	res, _ := http.Post(myUrl, "application/json", req)
+	res, err := http.Post(myUrl, "application/json", req)
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer res.Body.Close()
 	// var resString strings.Builder
 	// fmt.Println(resString.String())
 
 	// fmt.Println(res)
+	var resString strings.Builder
+	content, _ := io.ReadAll(res.Body)
+	byteCount, _ := resString.Write(content)
+	fmt.Println(string(content))
+	fmt.Println(byteCount)
+	fmt.Println(resString.String())
+
 	fmt.Println(res.StatusCode)
 }
