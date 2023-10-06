@@ -24,7 +24,6 @@ func GetReq() {
 
 	fmt.Println(res.Body)
 	fmt.Println("Status Code:", res.StatusCode)
-	fmt.Println(res.Status)
 
 	var resString strings.Builder
 	content, _ := io.ReadAll(res.Body)
