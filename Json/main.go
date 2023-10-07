@@ -62,4 +62,5 @@ func DecodeJson() {
 	var myOnlineData map[string]interface{}
 	json.Unmarshal(jsonDataFromWeb, &myOnlineData)
 	fmt.Printf("%#v", myOnlineData)
+	fmt.Printf("%T", myOnlineData["tags"])
 }
