@@ -13,3 +13,5 @@ use ./Json
 use ./Loop
 
 use ./Gophercies/01_quiz
+
+use ./Mod
