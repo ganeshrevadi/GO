@@ -16,6 +16,11 @@ type Author struct {
 
 var courses []Course
 
+//MiddleWare , helper - file
+func (c *Course) IsEmpty() bool {
+	return c.CourseID == "" && c.CourseName == ""
+}
+
 func main() {
 	fmt.Println("Build API with Golang")
 }
