@@ -17,7 +17,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(":4000", r))
 }
 func gretter() {
-	fmt.Println("Hello Mod User")
+	fmt.Println("Hello Mod User What's App?")
 }
 
 func serverHome(w http.ResponseWriter, r *http.Request) {
