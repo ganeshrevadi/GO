@@ -124,12 +124,7 @@ func deleteOneCourse(h http.ResponseWriter, r *http.Request) {
 	for i, course := range courses {
 		if course.CourseID == params["id"] {
 			courses = append(courses[:i], courses[i+1:]...)
-			var course Course
-			_ = json.NewDecoder(r.Body).Decode(&course)
-			course.CourseID = params["id"]
-			courses = append(courses, course)
-			json.NewEncoder(w).Encode(course)
-			return
+			break
 		}
 	}
 }
