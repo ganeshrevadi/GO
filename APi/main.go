@@ -32,6 +32,10 @@ func (c *Course) IsEmpty() bool {
 
 func main() {
 	fmt.Println("Build API with Golang")
+	router := mux.NewRouter()
+
+	fmt.Println(router)
+
 }
 
 //controllers - file
