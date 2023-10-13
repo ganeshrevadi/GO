@@ -33,7 +33,6 @@ func (c *Course) IsEmpty() bool {
 func main() {
 	fmt.Println("Build API with Golang")
 	router := mux.NewRouter()
-	fmt.Println("Done for the Day - 12")
 
 	fmt.Println(router)
 
