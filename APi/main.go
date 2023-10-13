@@ -34,6 +34,8 @@ func main() {
 	fmt.Println("Build API with Golang")
 	router := mux.NewRouter()
 
+	router.route('./getAll', getAllCourse)
+
 	fmt.Println(router)
 
 }
