@@ -126,6 +126,8 @@ func updateCourseOne(w http.ResponseWriter, r *http.Request) {
 func deleteOneCourse(h http.ResponseWriter, r *http.Request) {
 	fmt.Println("Update One Course")
 	w.Header().Set("Content-Type", "application/json")
+	
+	params := mux.Vars(r)
 
 	for i, course := range courses {
 		if course.CourseID == params["id"] {
