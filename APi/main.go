@@ -34,7 +34,12 @@ func main() {
 	fmt.Println("Build API with Golang")
 	router := mux.NewRouter()
 
-	router.route('./getAll', getAllCourse)
+	router.HandleFunc("/", serverHome)
+	router.HandleFunc("/getAll", getAllCourse).Methods("GET")
+	router.HandleFunc("/getOne", getOneCourse).Methods("GET")
+	router.HandleFunc("/createOne", createOneCourse).Methods("POST")
+	router.HandleFunc("/updateOne", updateCourseOne).Methods("PUT")
+	router.HandleFunc("/deleteOne", deleteOneCourse).Methods("DELETE")
 
 	fmt.Println(router)
 
@@ -126,7 +131,7 @@ func updateCourseOne(w http.ResponseWriter, r *http.Request) {
 func deleteOneCourse(h http.ResponseWriter, r *http.Request) {
 	fmt.Println("Update One Course")
 	w.Header().Set("Content-Type", "application/json")
-	
+
 	params := mux.Vars(r)
 
 	for i, course := range courses {
