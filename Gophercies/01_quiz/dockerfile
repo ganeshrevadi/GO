@@ -1,17 +1,17 @@
-# Use an official Golang runtime as a parent image
-FROM golang:latest
+# Use the official golang:alpine image as the base image
+FROM golang:alpine
 
-# Set the working directory to /go/src/app
-WORKDIR /go/src/app
+# Set the working directory to /app
+WORKDIR /app
 
-# Copy the current directory contents into the container at /go/src/app
-COPY . /go/src/app
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Download and install any required dependencies
-RUN go get -d -v ./...
+# Build the Go app
+RUN go build -o main . && limit=30
 
-# Install the package
-RUN go install -v ./...
+# Expose port 8080 for the application
+EXPOSE 8080
 
-# Set the entry point to the executable
-ENTRYPOINT ["app"]
+# Run the Go app when the container starts
+CMD ["./main"]
