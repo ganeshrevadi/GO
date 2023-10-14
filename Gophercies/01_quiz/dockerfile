@@ -1,0 +1,17 @@
+# Use an official Golang runtime as a parent image
+FROM golang:latest
+
+# Set the working directory to /go/src/app
+WORKDIR /go/src/app
+
+# Copy the current directory contents into the container at /go/src/app
+COPY . /go/src/app
+
+# Download and install any required dependencies
+RUN go get -d -v ./...
+
+# Install the package
+RUN go install -v ./...
+
+# Set the entry point to the executable
+ENTRYPOINT ["app"]
