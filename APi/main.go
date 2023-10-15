@@ -50,7 +50,7 @@ func main() {
 // serve home route
 
 func serverHome(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("<h1>Welcome to Golang</h1>"))
+	w.Write([]byte("<h1>Welcome to Golang API</h1>"))
 }
 
 func getAllCourse(w http.ResponseWriter, r *http.Request) {
