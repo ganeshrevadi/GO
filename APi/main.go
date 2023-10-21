@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -14,7 +15,7 @@ import (
 type Course struct {
 	CourseID    string  `json:"course_id"`
 	CourseName  string  `json:"course_name"`
-	CoursePrice int     `json:"course_price"`
+	CoursePrice int     `json:"-"`
 	Author      *Author `json:"author"`
 }
 
@@ -38,15 +39,14 @@ func main() {
 	courses = append(courses, Course{CourseID: "1", CourseName: "Golang", CoursePrice: 100, Author: &Author{FulName: "Golang", Website: "golang.org"}})
 	courses = append(courses, Course{CourseID: "2", CourseName: "Python", CoursePrice: 200, Author: &Author{FulName: "Python", Website: "python.org"}})
 
-	router.HandleFunc("/", serverHome)
-	router.HandleFunc("/getAll", getAllCourse).Methods("GET")
-	router.HandleFunc("/getOne", getOneCourse).Methods("GET")
-	router.HandleFunc("/createOne", createOneCourse).Methods("POST")
-	router.HandleFunc("/updateOne", updateCourseOne).Methods("PUT")
-	router.HandleFunc("/deleteOne", deleteOneCourse).Methods("DELETE")
-	http.Handle("/", router)
+	router.HandleFunc("/", serverHome).Methods("GET")
+	router.HandleFunc("/courses", getAllCourse).Methods("GET")
+	router.HandleFunc("/courses/{id}", getOneCourse).Methods("GET")
+	router.HandleFunc("/course", createOneCourse).Methods("POST")
+	router.HandleFunc("/course/{id}", updateCourseOne).Methods("PUT")
+	router.HandleFunc("/course/{id}", deleteOneCourse).Methods("DELETE")
 
-	fmt.Println(router)
+	log.Fatal(http.ListenAndServe(":4000", router))
 
 }
 
@@ -59,7 +59,7 @@ func serverHome(w http.ResponseWriter, r *http.Request) {
 }
 
 func getAllCourse(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Get All Course"))
+	w.Write([]byte("Course List \n"))
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(courses)
 }
@@ -97,6 +97,13 @@ func createOneCourse(w http.ResponseWriter, r *http.Request) {
 
 	var course Course
 	_ = json.NewDecoder(r.Body).Decode(&course)
+	for _, cour := range courses {
+		if cour.CourseID == course.CourseID {
+			json.NewEncoder(w).Encode("Duplicate ID")
+			return
+		}
+	}
+
 	if course.IsEmpty() {
 		json.NewEncoder(w).Encode("No data")
 		return
@@ -145,8 +152,4 @@ func deleteOneCourse(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
-}
-
-func HelloWorld() {
-	fmt.Println("Hello World ! ")
 }
