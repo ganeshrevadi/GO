@@ -40,6 +40,7 @@ func main() {
 	router.HandleFunc("/createOne", createOneCourse).Methods("POST")
 	router.HandleFunc("/updateOne", updateCourseOne).Methods("PUT")
 	router.HandleFunc("/deleteOne", deleteOneCourse).Methods("DELETE")
+	http.Handle("/", router)
 
 	fmt.Println(router)
 
