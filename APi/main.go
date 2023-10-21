@@ -34,6 +34,10 @@ func main() {
 	fmt.Println("Build API with Golang")
 	router := mux.NewRouter()
 
+	//seeding
+	courses = append(courses, Course{CourseID: "1", CourseName: "Golang", CoursePrice: 100, Author: &Author{FulName: "Golang", Website: "golang.org"}})
+	courses = append(courses, Course{CourseID: "2", CourseName: "Python", CoursePrice: 200, Author: &Author{FulName: "Python", Website: "python.org"}})
+
 	router.HandleFunc("/", serverHome)
 	router.HandleFunc("/getAll", getAllCourse).Methods("GET")
 	router.HandleFunc("/getOne", getOneCourse).Methods("GET")
