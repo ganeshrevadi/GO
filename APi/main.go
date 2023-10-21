@@ -97,15 +97,14 @@ func createOneCourse(w http.ResponseWriter, r *http.Request) {
 
 	var course Course
 	_ = json.NewDecoder(r.Body).Decode(&course)
-	for _, cour := range courses {
-		if cour.CourseID == course.CourseID {
-			json.NewEncoder(w).Encode("Duplicate ID")
-			return
-		}
-	}
 
 	if course.IsEmpty() {
 		json.NewEncoder(w).Encode("No data")
+		return
+	}
+
+	if checkForDuplicateCourseID(course.CourseID, courses) {
+		json.NewEncoder(w).Encode("Data already exist !")
 		return
 	}
 
@@ -152,4 +151,13 @@ func deleteOneCourse(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
+}
+
+func checkForDuplicateCourseID(courseID string, courses []Course) bool {
+	for _, course := range courses {
+		if course.CourseID == courseID {
+			return true
+		}
+	}
+	return false
 }
