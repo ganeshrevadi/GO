@@ -141,3 +141,7 @@ func deleteOneCourse(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
+func HelloWorld() {
+	fmt.Println("Hello World ! ")
+}
