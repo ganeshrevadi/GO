@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Hey From Mongo!")
+	fmt.Println("Hey From Mongo DB!")
 	r := mux.NewRouter()
 	fmt.Println(r)
 }
