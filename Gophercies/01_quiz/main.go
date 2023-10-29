@@ -1,6 +1,7 @@
 package main
-import(
-"encoding/csv"
+
+import (
+	"encoding/csv"
 	"flag"
 	"fmt"
 	"os"
@@ -50,8 +51,6 @@ Loop:
 	}
 
 	fmt.Println("Your score is: ", score)
- 
-
 }
 
 func ErrorCheck(err error) {
