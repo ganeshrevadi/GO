@@ -41,7 +41,6 @@ func insertOneMovie(movie model.Netflix) {
 
 	if err != nil {
 		log.Fatal(err)
-		panic(err)
 	}
 
 	fmt.Println(inserted)
