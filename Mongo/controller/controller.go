@@ -6,6 +6,8 @@ import (
 	"ganeshrevadi/GO/Mongo/model"
 	"log"
 
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -16,7 +18,7 @@ const collectionName = "watchlists"
 
 var collection *mongo.Collection
 
-func init() {
+func Init() {
 	//Client Option
 	clientOption := options.Client().ApplyURI(connectString)
 
@@ -43,5 +45,18 @@ func insertOneMovie(movie model.Netflix) {
 		log.Fatal(err)
 	}
 
-	fmt.Println(inserted)
+	fmt.Println("Inserted 1 Movie in db with id : ", inserted.InsertedID)
+}
+
+func updateOneMovie(moiveId string) {
+	id, _ := primitive.ObjectIDFromHex(moiveId)
+	filter := bson.M{"_id": id}
+	update := bson.M{"$set": bson.M{"Watched": true}}
+
+	result, err := collection.UpdateOne(context.Background(), filter, update)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Modified Count : ", result.ModifiedCount)
 }
