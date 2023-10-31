@@ -3,6 +3,8 @@ package controller
 import (
 	"context"
 	"fmt"
+	"ganeshrevadi/GO/Mongo/model"
+	"log"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -32,4 +34,15 @@ func init() {
 	//collection instance
 	fmt.Println("Collection instance created!")
 
+}
+
+func insertOneMovie(movie model.Netflix) {
+	inserted, err := collection.InsertOne(context.Background(), movie)
+
+	if err != nil {
+		log.Fatal(err)
+		panic(err)
+	}
+
+	fmt.Println(inserted)
 }
