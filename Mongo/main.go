@@ -2,16 +2,15 @@ package main
 
 import (
 	"fmt"
-	"ganeshrevadi/GO/Mongo/controller"
-
-	"github.com/gorilla/mux"
+	"ganeshrevadi/GO/Mongo/routes"
+	"log"
+	"net/http"
 )
 
 func main() {
 	fmt.Println("Hey From Mongo DB Connecting to your database !")
-	r := mux.NewRouter()
-	fmt.Println(r)
-
-	controller.Init()
-
+	r := routes.Router()
+	fmt.Println("Server is getting Started...")
+	log.Fatal(http.ListenAndServe(":4000", r))
+	fmt.Println("Listing On Port 4000 ...")
 }

@@ -15,13 +15,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const connectString = "mongodb+srv://ganeshrevadi16:Grganesh16@@cluster0.dltvwo2.mongodb.net/"
+const connectString = "mongodb+srv://ganeshrevadi16:grganesh@cluster0.dltvwo2.mongodb.net/?retryWrites=true&w=majority"
 const dbName = "netflix"
 const collectionName = "watchlists"
 
 var collection *mongo.Collection
 
-func Init() {
+func init() {
 	//Client Option
 	clientOption := options.Client().ApplyURI(connectString)
 
@@ -75,12 +75,13 @@ func deleteOneMovie(movieId string) {
 	fmt.Println("Deleted Count : ", result.DeletedCount)
 }
 
-func deleteAllMovie() {
+func deleteAllMovie() int64 {
 	result, err := collection.DeleteMany(context.Background(), bson.D{{}}, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Deleted Count is : ", result.DeletedCount)
+	return result.DeletedCount
 }
 
 // Get all Movies from Database
@@ -127,12 +128,12 @@ func CreateMovie(w http.ResponseWriter, r *http.Request) {
 
 func MarkAsWatch(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
-	w.Header().Set("Allow-Control-Allow-Methods", "POST")
+	w.Header().Set("Allow-Control-Allow-Methods", "PUT")
 
 	params := mux.Vars(r)
 
 	updateOneMovie(params["id"])
-	json.NewEncoder(w).Encode(params)
+	json.NewEncoder(w).Encode(params["id"])
 }
 
 func DeleteOne(w http.ResponseWriter, r *http.Request) {
@@ -142,5 +143,13 @@ func DeleteOne(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
 	deleteOneMovie(params["id"])
-	json.NewEncoder(w).Encode(params)
+	json.NewEncoder(w).Encode(params["id"])
+}
+
+func DeleteAll(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
+	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
+
+	count := deleteAllMovie()
+	json.NewEncoder(w).Encode(count)
 }
