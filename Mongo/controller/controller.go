@@ -60,3 +60,13 @@ func updateOneMovie(moiveId string) {
 
 	fmt.Println("Modified Count : ", result.ModifiedCount)
 }
+
+func DeleteOneMovie(movieId string) {
+	filter := bson.M{"_id": movieId}
+	result, err := collection.DeleteOne(context.Background(), filter)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Deleted Count : ", result.DeletedCount)
+}
