@@ -77,5 +77,5 @@ func DeleteAllMovie() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Deleted Count is : ", result)
+	fmt.Println("Deleted Count is : ", result.DeletedCount)
 }
