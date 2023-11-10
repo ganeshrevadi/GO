@@ -6,4 +6,5 @@ use (
 	./API
 	./Json
 	./Mongo
+	./Goroutines
 )
